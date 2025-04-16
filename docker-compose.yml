@@ -1,0 +1,19 @@
+services:
+
+  postgres-db:
+    image: postgres:latest
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "mysecretpassword" # Accept the End User License Agreement
+      POSTGRES_USER: "postgres" # Set the SA password
+      POSTGRES_DB: "mydb" # Use the free Express edition (optional)
+
+  api:
+    build: './'
+    ports:
+      - "5000:8080"
+    environment:
+      PGPASSWORD: "mysecretpassword"
+    depends_on:
+      - postgres-db
